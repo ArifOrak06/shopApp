@@ -7,7 +7,7 @@ import { RestService } from 'src/app/model/rest.service';
 @Injectable()
 export class CategoryRepository implements OnInit
 {
-  private categories : Category[] = [];
+  private _categories : Category[] = [];
 
   constructor(private restService : RestService)
   {
@@ -17,13 +17,13 @@ export class CategoryRepository implements OnInit
 
   ngOnInit(): void {
     this.restService
-      .getProducts()
-      .subscribe(products => this.categories = products);
+      .getCategories()
+      .subscribe(categories => this._categories = categories);
   }
 
   getProduct(categoryId?:number) : Category | undefined
   {
-    return this.categories.find(x => x.id === categoryId);
+    return this._categories.find(x => x.id === categoryId);
   }
 
 }
