@@ -11,19 +11,23 @@ export class CategoryRepository implements OnInit
 
   constructor(private restService : RestService)
   {
-
+    this.restService
+    .getCategories()
+    .subscribe(categories => this._categories = categories);
   }
 
 
   ngOnInit(): void {
-    this.restService
-      .getCategories()
-      .subscribe(categories => this._categories = categories);
+
   }
 
-  getProduct(categoryId?:number) : Category | undefined
+  getCategoryById(categoryId?:number) : Category | undefined
   {
     return this._categories.find(x => x.id === categoryId);
+  }
+  getCategories() : Category[]
+  {
+    return this._categories;
   }
 
 }
