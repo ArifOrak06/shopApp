@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from './ModelViews/product.model';
 import { Observable } from 'rxjs';
 import { Category } from './ModelViews/category.model';
+import { Order } from './ModelViews/order.model';
 
 @Injectable()
 export class RestService {
@@ -19,5 +20,10 @@ export class RestService {
   getCategories():Observable<Category[]>
   {
     return this.httpClient.get<Category[]>(`${this.baseUrl}categories`);
+  }
+
+  saveOrder(order:Order):Observable<Order>
+  {
+    return this.httpClient.post<Order>(`${this.baseUrl}orders`, order);
   }
 }
