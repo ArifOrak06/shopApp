@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Cart } from "../model/ModelViews/cart.model";
 import { Category } from "../model/ModelViews/category.model";
 import { Product } from "../model/ModelViews/product.model";
 import { CategoryRepository } from "../model/Repositories/category.repository";
@@ -6,12 +8,8 @@ import { ProductRepository } from "../model/Repositories/product.repository";
 
 @Component({
   selector:'shop',
-  templateUrl:'shop.component.html',
-  styles:[`
-    .pt-100{
-      padding-top:100px;
-    }
-  `]
+  templateUrl:'shop.component.html'
+
 })
 export class ShopComponent implements OnInit
 {
@@ -19,9 +17,12 @@ export class ShopComponent implements OnInit
   public productsPerPage: number = 3;
   public selectedPage:number = 1;
 
-  constructor(private productRepository:ProductRepository, private categoryRepository : CategoryRepository){
-
-  }
+  constructor(
+    private productRepository:ProductRepository,
+    private categoryRepository : CategoryRepository,
+    private cartService : Cart,
+    private router : Router
+    ){  }
 
   ngOnInit(): void {
 
@@ -53,5 +54,10 @@ export class ShopComponent implements OnInit
   changePage(p : number)
   {
     this.selectedPage = p;
+  }
+  addProductToCart(product?:Product)
+  {
+    this.cartService.addItem(product);
+    this.router.navigateByUrl('/cart');
   }
 }
