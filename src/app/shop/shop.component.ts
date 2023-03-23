@@ -15,7 +15,10 @@ import { ProductRepository } from "../model/Repositories/product.repository";
 })
 export class ShopComponent implements OnInit
 {
-  selectedCategory : any = null;
+  public selectedCategory : any = null;
+  public productsPerPage = 3;
+  public selectedPage = 1;
+
   constructor(private productRepository:ProductRepository, private categoryRepository : CategoryRepository){
 
   }
@@ -27,8 +30,14 @@ export class ShopComponent implements OnInit
 
   get Products(): Product[] | undefined
   {
+    let index = (this.selectedPage - 1) * this.productsPerPage;
 
-    return this.productRepository.getProducts(this.selectedCategory);
+    return this.productRepository
+          .getProducts(this.selectedCategory)
+          ?.slice(index,index + this.productsPerPage);
+          // index 1 için slice (0,3)
+          // index 3 için slice (3,6)
+          //index
   }
 
   get Categories(): Category[]| undefined
@@ -41,5 +50,9 @@ export class ShopComponent implements OnInit
 
   changeCategory(c : Category){
     this.selectedCategory = c;
+  }
+  changePage(p : number)
+  {
+    this.selectedPage = p;
   }
 }
