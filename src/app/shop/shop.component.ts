@@ -16,8 +16,8 @@ import { ProductRepository } from "../model/Repositories/product.repository";
 export class ShopComponent implements OnInit
 {
   public selectedCategory : any = null;
-  public productsPerPage = 3;
-  public selectedPage = 1;
+  public productsPerPage: number = 3;
+  public selectedPage:number = 1;
 
   constructor(private productRepository:ProductRepository, private categoryRepository : CategoryRepository){
 
@@ -45,7 +45,6 @@ export class ShopComponent implements OnInit
 
     return this.categoryRepository.getCategories();
   }
-
 
 
   changeCategory(c : Category){
